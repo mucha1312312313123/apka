@@ -1,0 +1,15 @@
+# Środowisko i pliki budowania
+.venv/
+build/
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Ustawienia i logi z tego komputera
+settings.ini
+colorvision_error.log
+
+# Zapisane klatki
+*.png
+!colorvision/**/*.png

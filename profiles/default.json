@@ -1,0 +1,177 @@
+{
+  "track_max_distance": 60,
+  "track_lost_ms": 1000,
+  "reference_size": [
+    765,
+    503
+  ],
+  "regions": {
+    "game_view": [
+      4,
+      4,
+      512,
+      334
+    ],
+    "minimap": [
+      550,
+      4,
+      210,
+      160
+    ],
+    "inventory": [
+      548,
+      205,
+      190,
+      261
+    ],
+    "chat": [
+      0,
+      338,
+      519,
+      165
+    ]
+  },
+  "rules": [
+    {
+      "name": "hp_bar_green",
+      "lower": [
+        55,
+        200,
+        150
+      ],
+      "upper": [
+        65,
+        255,
+        255
+      ],
+      "region": "game_view",
+      "min_area": 12,
+      "max_area": 1500,
+      "merge_px": 2,
+      "draw_bgr": [
+        0,
+        255,
+        0
+      ],
+      "enabled": true,
+      "shape": "any",
+      "min_confidence": 0.0
+    },
+    {
+      "name": "hp_bar_red",
+      "lower": [
+        177,
+        200,
+        150
+      ],
+      "upper": [
+        3,
+        255,
+        255
+      ],
+      "region": "game_view",
+      "min_area": 12,
+      "max_area": 1500,
+      "merge_px": 2,
+      "draw_bgr": [
+        0,
+        0,
+        255
+      ],
+      "enabled": true,
+      "shape": "any",
+      "min_confidence": 0.0
+    },
+    {
+      "name": "minimap_yellow",
+      "lower": [
+        25,
+        180,
+        180
+      ],
+      "upper": [
+        35,
+        255,
+        255
+      ],
+      "region": "minimap",
+      "min_area": 3,
+      "max_area": 60,
+      "merge_px": 0,
+      "draw_bgr": [
+        0,
+        255,
+        255
+      ],
+      "enabled": true,
+      "shape": "any",
+      "min_confidence": 0.0
+    }
+  ],
+  "templates": [],
+  "states": [
+    {
+      "name": "W walce",
+      "mode": "any",
+      "enter_ms": 300,
+      "exit_ms": 5000,
+      "enabled": true,
+      "conditions": [
+        {
+          "item": "hp_bar_green",
+          "op": ">=",
+          "value": 1
+        },
+        {
+          "item": "hp_bar_red",
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "Ekwipunek pełny",
+      "mode": "all",
+      "enter_ms": 500,
+      "exit_ms": 500,
+      "enabled": true,
+      "conditions": [
+        {
+          "item": "pusty_slot",
+          "op": "==",
+          "value": 0
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "name": "Zapisz w dzienniku",
+      "steps": [
+        {
+          "kind": "log",
+          "target": "",
+          "button": "left",
+          "key": "",
+          "ms": 0,
+          "op": ">=",
+          "value": 1,
+          "message": "Ekwipunek jest pelny"
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "name": "Gdy pelny ekwipunek",
+      "task": "Zapisz w dzienniku",
+      "priority": 0,
+      "when_state": "Ekwipunek pełny",
+      "unless_state": null,
+      "conditions": [],
+      "cooldown_ms": 30000,
+      "interrupt": false,
+      "enabled": true
+    }
+  ]
+}
